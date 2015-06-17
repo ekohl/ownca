@@ -11,7 +11,7 @@ default_ca                              = CA_default
  
 [ CA_default ]
 default_bits                            = 2048
-default_md                              = sha1
+default_md                              = sha256
 serial                                  = $dir/serial
 database                                = $dir/certindex.txt
 new_certs_dir                           = $dir/certs
@@ -34,7 +34,7 @@ emailAddress                            = optional
  
 [ req ]
 default_bits                            = 2048                  # Size of keys
-default_md                              = sha1
+default_md                              = sha256
 default_keyfile                         = key.crt               # name of generated keys
 string_mask                             = nombstr               # permitted characters
 distinguished_name                      = req_distinguished_name
