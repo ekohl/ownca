@@ -1,14 +1,12 @@
-#
 # OpenSSL configuration file.
-#
- 
+
 # Establish working directory.
- 
+
 dir                                     = .
- 
+
 [ ca ]
 default_ca                              = CA_default
- 
+
 [ CA_default ]
 default_bits                            = 2048
 default_md                              = sha256
@@ -23,7 +21,8 @@ email_in_dn                             = no
 nameopt                                 = default_ca
 certopt                                 = default_ca
 policy                                  = policy_match
- 
+copy_extensions			                    = copy
+
 [ policy_match ]
 countryName                             = match
 stateOrProvinceName                     = match
@@ -31,7 +30,7 @@ organizationName                        = match
 organizationalUnitName                  = optional
 commonName                              = supplied
 emailAddress                            = optional
- 
+
 [ req ]
 default_bits                            = 2048                  # Size of keys
 default_md                              = sha256
@@ -39,7 +38,7 @@ default_keyfile                         = key.crt               # name of genera
 string_mask                             = nombstr               # permitted characters
 distinguished_name                      = req_distinguished_name
 req_extensions                          = v3_req
- 
+
 [ req_distinguished_name ]
 # Variable name                         Prompt string
 #-------------------------        ----------------------------------
@@ -54,7 +53,7 @@ countryName_min                         = 2
 countryName_max                         = 2
 commonName                              = Common Name (hostname, IP, or your name)
 commonName_max                          = 64
- 
+
 # Default values for the above, for consistency and less typing.
 # Variable name                         Value
 #------------------------         ------------------------------
@@ -62,12 +61,14 @@ commonName_max                          = 64
 localityName_default                    = My Town
 stateOrProvinceName_default             = State or Providence
 countryName_default                     = US
- 
+
 [ v3_ca ]
 basicConstraints                        = CA:TRUE
 subjectKeyIdentifier                    = hash
 authorityKeyIdentifier                  = keyid:always,issuer:always
- 
+
 [ v3_req ]
 basicConstraints                        = CA:FALSE
 subjectKeyIdentifier                    = hash
+keyUsage                                = nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage                        = serverAuth, clientAuth, codeSigning, emailProtection
