@@ -1,6 +1,11 @@
-#!/bin/bash
+#!/bin/bash -e
 
 export CERT_HOST=$1
+if [[ -z $CERT_HOST ]] ; then
+	echo "Usage: $0 CERT_HOST"
+	exit 1
+fi
+
 mkdir $CERT_HOST
 echo "[alt_names]" >> ./openssl.cnf
 echo "DNS.1 = $CERT_HOST" >> ./openssl.cnf
