@@ -21,7 +21,7 @@ email_in_dn                             = no
 nameopt                                 = default_ca
 certopt                                 = default_ca
 policy                                  = policy_match
-copy_extensions			                    = copy
+copy_extensions                         = copy
 
 [ policy_match ]
 countryName                             = match
@@ -59,7 +59,7 @@ commonName_max                          = 64
 #------------------------         ------------------------------
 0.organizationName_default              = My Company
 localityName_default                    = My Town
-stateOrProvinceName_default             = State or Providence
+stateOrProvinceName_default             = State or Province
 countryName_default                     = US
 
 [ v3_ca ]
