@@ -64,7 +64,3 @@ basicConstraints                        = CA:FALSE
 subjectKeyIdentifier                    = hash
 keyUsage                                = nonRepudiation, digitalSignature, keyEncipherment
 extendedKeyUsage                        = serverAuth, clientAuth, codeSigning, emailProtection
-subjectAltName                          = @alt_names
-
-[ alt_names ]
-DNS.1                                   = $ENV::CERT_HOST
