@@ -24,9 +24,9 @@ policy                                  = policy_match
 copy_extensions                         = copy
 
 [ policy_match ]
-countryName                             = match
-stateOrProvinceName                     = match
-organizationName                        = match
+countryName                             = optional
+stateOrProvinceName                     = optional
+organizationName                        = optional
 organizationalUnitName                  = optional
 commonName                              = supplied
 emailAddress                            = optional
@@ -53,14 +53,6 @@ countryName_min                         = 2
 countryName_max                         = 2
 commonName                              = Common Name (hostname, IP, or your name)
 commonName_max                          = 64
-
-# Default values for the above, for consistency and less typing.
-# Variable name                         Value
-#------------------------         ------------------------------
-0.organizationName_default              = My Company
-localityName_default                    = My Town
-stateOrProvinceName_default             = State or Province
-countryName_default                     = US
 
 [ v3_ca ]
 basicConstraints                        = CA:TRUE
