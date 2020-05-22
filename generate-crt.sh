@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-export CERT_HOST=$1
+export CERT_HOST="$1"
 if [[ -z $CERT_HOST ]] ; then
 	echo "Usage: $0 CERT_HOST"
 	exit 1
@@ -11,7 +11,7 @@ if [[ ! -e private/cakey.crt ]] ; then
 	exit 2
 fi
 
-mkdir $CERT_HOST
+mkdir "$CERT_HOST"
 openssl req -new -nodes \
 	-subj "/CN=$CERT_HOST" \
 	-addext "subjectAltName = DNS:$CERT_HOST" \
