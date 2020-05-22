@@ -70,6 +70,10 @@ write_openssl() {
 	subjectKeyIdentifier                    = hash
 	keyUsage                                = nonRepudiation, digitalSignature, keyEncipherment
 	extendedKeyUsage                        = serverAuth, clientAuth, codeSigning, emailProtection
+	subjectAltName                          = @alt_names
+
+	[ alt_names ]
+	DNS.1                                   = \$ENV::CERT_HOST
 	OPENSSL
 }
 
@@ -85,13 +89,14 @@ if [[ $ACTION == "ca" ]] ; then
 		write_openssl
 	fi
 
+	export CERT_HOST=""
 	openssl req -batch -new -x509 \
 		-config "$OPENSSL_FILE" \
 		-subj "$SUBJECT" -extensions v3_ca -nodes \
 		-keyout private/cakey.crt \
 		-out cacert.crt -days 3650
 elif [[ $ACTION == "cert" ]] ; then
-	CERT_HOST="$2"
+	export CERT_HOST="$2"
 	if [[ -z $CERT_HOST ]] ; then
 		echo "Usage: $0 cert HOSTNAME"
 		exit 1
@@ -103,9 +108,9 @@ elif [[ $ACTION == "cert" ]] ; then
 	fi
 
 	mkdir "$CERT_HOST"
-	openssl req -new -nodes \
+	openssl req -batch -new -nodes \
+		-config "$OPENSSL_FILE" \
 		-subj "/CN=$CERT_HOST" \
-		-addext "subjectAltName = DNS:$CERT_HOST" \
 		-out "./$CERT_HOST/$CERT_HOST.req" \
 		-keyout "./$CERT_HOST/$CERT_HOST.key"
 

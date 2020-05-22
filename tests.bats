@@ -31,6 +31,7 @@ teardown() {
         test -d private
         test -f private/cakey.crt
         openssl x509 -in cacert.crt -noout -text | grep "Subject: C = NL, CN = My Custom CA"
+        openssl x509 -in cacert.crt -noout -text | grep "CA:TRUE"
 }
 
 @test "Call cert without an argument" {
@@ -56,5 +57,6 @@ teardown() {
         openssl x509 -in host.example.com/host.example.com.crt -noout -text
         openssl x509 -in host.example.com/host.example.com.crt -noout -text | grep -q "Issuer: CN = OwnCA"
         openssl x509 -in host.example.com/host.example.com.crt -noout -text | grep -q "Subject: CN = host.example.com"
+        openssl x509 -in host.example.com/host.example.com.crt -noout -text | grep -q "CA:FALSE"
         openssl x509 -in host.example.com/host.example.com.crt -noout -text | grep -q "DNS:host.example.com"
 }
