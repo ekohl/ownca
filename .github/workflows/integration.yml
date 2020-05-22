@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  - pull_request
+  - push
+
+env:
+  COLORTERM: 'yes'
+  TERM: 'xterm-256color'
+
+jobs:
+  Integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: sudo apt install -y bats openssl shellcheck
+      - name: Run bats tests
+        run: ./tests.bats
+
+  ShellCheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: sudo apt install -y shellcheck
+      - name: Run shellcheck
+        run: shellcheck *.sh
