@@ -12,3 +12,7 @@ certificates. Not recommended for serious production.
 # generate a server cert signed by this CA
 ./generate-crt.sh my-server.example.com
 ```
+
+## AUTHORS
+
+Own CA was initially written by [@iNecas](https://github.com/iNecas) and currently maintained by [@ekohl](https://github.com/ekohl).
