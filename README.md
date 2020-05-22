@@ -1,6 +1,6 @@
-# Own CA scripts
+# Own CA script
 
-Set of scripts for setting up a custom CA for signing server
+A script to set up a custom CA for signing server
 certificates. Not recommended for serious production.
 
 ## Installation
