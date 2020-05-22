@@ -6,6 +6,11 @@ if [[ -z $CERT_HOST ]] ; then
 	exit 1
 fi
 
+if [[ ! -e private/cakey.crt ]] ; then
+	echo "First generate a CA using generate-ca.sh"
+	exit 2
+fi
+
 mkdir $CERT_HOST
 openssl req -new -nodes \
 	-subj "/CN=$CERT_HOST" \
