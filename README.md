@@ -7,6 +7,7 @@ certificates. Not recommended for serious production.
 
 ```console
 $ wget https://raw.githubusercontent.com/ekohl/ownca/master/ownca
+$ chmod +x ownca
 ```
 
 ## Usage
