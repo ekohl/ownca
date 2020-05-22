@@ -3,7 +3,6 @@
 setup() {
         PATH="$BATS_TEST_DIRNAME:$PATH"
         WORKDIR=$(mktemp -d)
-        cp openssl.cnf "$WORKDIR/"
         cd "$WORKDIR" || exit
 }
 
@@ -11,8 +10,13 @@ teardown() {
         rm -rf "$WORKDIR"
 }
 
+@test "Run without arguments" {
+        run ownca
+        [[ $status == 1 ]]
+}
+
 @test "Generate CA" {
-        generate-ca.sh
+        ownca ca
         test -f certindex.txt
         test -d certs
         test -d private
@@ -21,7 +25,7 @@ teardown() {
 }
 
 @test "Generate CA with custom subject" {
-        generate-ca.sh "/C=NL/CN=My Custom CA"
+        ownca ca "/C=NL/CN=My Custom CA"
         test -f certindex.txt
         test -d certs
         test -d private
@@ -29,9 +33,19 @@ teardown() {
         openssl x509 -in cacert.crt -noout -text | grep "Subject: C = NL, CN = My Custom CA"
 }
 
+@test "Call cert without an argument" {
+        run ownca cert
+        [[ $status == 1 ]]
+}
+
+@test "Call cert without a CA" {
+        run ownca cert host.example.com
+        [[ $status == 2 ]]
+}
+
 @test "Generate certificate" {
-        generate-ca.sh
-        generate-crt.sh host.example.com
+        ownca ca
+        ownca cert host.example.com
 
         echo
         echo "Generated certificate - verifying"

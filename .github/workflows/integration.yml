@@ -25,4 +25,4 @@ jobs:
       - name: Install packages
         run: sudo apt install -y shellcheck
       - name: Run shellcheck
-        run: shellcheck *.sh
+        run: shellcheck ownca
