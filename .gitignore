@@ -1,4 +1,6 @@
-cacert.crt
+*.crt
+*.key
+*.req
 certindex*
 certs
 openssl.cnf
