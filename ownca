@@ -81,10 +81,6 @@ if [[ $ACTION == "ca" ]] ; then
 	mkdir -p certs/
 	mkdir -p private/
 
-	if [[ ! -f serial ]] ; then
-		echo 100001 > serial
-	fi
-
 	if [[ ! -f "$OPENSSL_FILE" ]] ; then
 		write_openssl
 	fi
@@ -113,7 +109,7 @@ elif [[ $ACTION == "cert" ]] ; then
 		-out "./$CERT_HOST/$CERT_HOST.req" \
 		-keyout "./$CERT_HOST/$CERT_HOST.key"
 
-	openssl ca -batch \
+	openssl ca -batch -create_serial \
 		-config "$OPENSSL_FILE" \
 		-in "./$CERT_HOST/$CERT_HOST.req" \
 		-out "./$CERT_HOST/$CERT_HOST.crt"

@@ -49,6 +49,7 @@ teardown() {
 
         echo
         echo "Generated certificate - verifying"
+        test -f serial
         test -f host.example.com/host.example.com.req
         test -f host.example.com/host.example.com.key
         test -f host.example.com/host.example.com.crt
