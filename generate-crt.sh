@@ -7,10 +7,12 @@ if [[ -z $CERT_HOST ]] ; then
 fi
 
 mkdir $CERT_HOST
-cat <<EOF | openssl req -new -nodes -out ./$CERT_HOST/$CERT_HOST.crt.req\
-  -keyout ./$CERT_HOST/$CERT_HOST.key -config ./openssl.cnf
+openssl req -new -nodes \
+	-subj "/CN=$CERT_HOST" \
+	-addext "subjectAltName = DNS:$CERT_HOST" \
+	-out "./$CERT_HOST/$CERT_HOST.req" \
+	-keyout "./$CERT_HOST/$CERT_HOST.key"
 
-$CERT_HOST
-EOF
-
-openssl ca -out ./$CERT_HOST/$CERT_HOST.crt -config ./openssl.cnf -infiles ./$CERT_HOST/$CERT_HOST.crt.req
+openssl ca -batch -config ./openssl.cnf \
+	-in "./$CERT_HOST/$CERT_HOST.req" \
+	-out "./$CERT_HOST/$CERT_HOST.crt"
