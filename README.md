@@ -22,6 +22,12 @@ Own CA can be executed from any directory and creates files the current working 
 ./ownca cert my-server.example.com
 ```
 
+## Verify certificate
+
+```console
+$ openssl verify -verbose -CAfile cacert.crt /path/to/my-server.example.com.crt
+```
+
 ## AUTHORS
 
 Own CA was initially written by [@iNecas](https://github.com/iNecas) and currently maintained by [@ekohl](https://github.com/ekohl).
